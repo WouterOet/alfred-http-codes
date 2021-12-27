@@ -1,0 +1,21 @@
+name: test & release
+
+on: push
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build artifact
+        run: make
+
+      - name: Create release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: '*.alfredworkflow'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
